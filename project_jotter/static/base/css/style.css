@@ -1,8 +1,9 @@
 /* === Global Variables === */
 :root {
     color-scheme: light dark;
-    --shadow: 0.32rem 0.32rem var(--col-fg);
     --section-border: 1px solid var(--col-hr);
+    --shadow-block: 0.32rem 0.32rem var(--col-fg);
+    --shadow-outline: 0 0 2px var(--col-fg);
 }
 /* https://www.realtimecolors.com/?colors=212121-f1e9ee-6d55af-dc8fcc-e8bfd3 */
 :root[data-theme="light"] {
@@ -67,7 +68,7 @@ body {
 }
 .selectable:hover:not(:active) {
     translate: 0 -0.32rem;
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-block);
 }
 
 /* === Panels === */
@@ -77,7 +78,7 @@ body {
     padding: 1em;
     border-radius: 1em;
     margin-block: 1em;
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow-block);
 }
 .panel-primary {
     --col-panel: var(--col-primary);
@@ -151,7 +152,7 @@ body {
 
 .page-preheading {
     font-size: 1.8rem;
-    margin-bottom: -2rem;
+    margin-bottom: -2.5rem;
 }
 
 .page-heading {
@@ -162,6 +163,7 @@ body {
 
 .page-description {
     font-size: 1rem;
+    /* margin-top: -1.8rem; */
 }
 
 /* === Hero === */
@@ -182,7 +184,8 @@ ie. not just for "hero" sections.
     color: transparent;
     background-image: linear-gradient(to right, var(--col-primary), var(--col-secondary), var(--col-accent));
     background-clip: text;
-    filter: drop-shadow(var(--shadow));
+    /* The first shadow helps with readability against the hero background */
+    filter: drop-shadow(var(--shadow-outline)) drop-shadow(var(--shadow-block));
 }
 
 .hero-button-group {
@@ -218,6 +221,7 @@ ie. not just for "hero" sections.
     flex-direction: column;
     gap: 1em;
     border-bottom: var(--section-border);
+    padding-bottom: 1rem;
 }
 
 .footer-option {

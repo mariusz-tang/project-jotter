@@ -1,25 +1,26 @@
-{% extends "base/base.html" %}
+{% extends "pages/base.html" %}
 
 {% load static %}
 
 {% block description %}The homepage of Project Jotter—a website for drafting project ideas.{% endblock description %}
 {% block title %}Home{% endblock title %}
 
-{% block content %}
-<header class="section">
-    <div class="content page-header-content hero-content">
-        <hgroup>
-            <p class="page-preheading">Jot anything, anywhere, with</p>
-            <h1 class="page-heading hero-heading">Project Jotter</h1>
-        </hgroup>
-        <p class="page-description">Plan everything, from websites and video games to trips abroad and social events, completely free. Share your completed projects, and get inspired by what others have done!</p>
-        <div class="hero-button-group">
-            <a href="index.html" class="button button-cta button-primary selectable">Get started</a>
-            <a href="index.html" class="button button-cta button-secondary selectable">See examples</a>
-        </div>
-        {% include "svgs/header-image.html" %}
+{% block page_preheading %}Jot anything, anywhere, with{% endblock page_preheading %}
+{% block page_heading %}Project Jotter{% endblock page_heading %}
+{% block page_description %}
+    Plan everything, from websites and video games to trips abroad and social events, completely free.
+    Share your completed projects, and get inspired by what others have done!
+{% endblock page_description %}
+
+{% block page_header_content %}
+    {{ block.super }}
+    <div class="hero-button-group">
+        <a href="index.html" class="button button-cta button-primary selectable">Get started</a>
+        <a href="index.html" class="button button-cta button-secondary selectable">See examples</a>
     </div>
-</header>
+{% endblock page_header_content %}
+
+{% block content %}
 <section class="section">
     <div class="content content-right-align">
         <div>
@@ -35,15 +36,15 @@
         <h2 class="section-heading">Workflow</h2>
         <ol class="workflow">
             <li class="workflow-item panel panel-primary">
-                {% include "svgs/idea.html" %}
+                {% include "pages/svgs/idea.html" %}
                 <p class="workflow-text">Think of an idea</p>
             </li>
             <li class="workflow-item panel panel-secondary">
-                {% include "svgs/notes.html" %}
+                {% include "pages/svgs/notes.html" %}
                 <p class="workflow-text">Jot it down</p>
             </li>
             <li class="workflow-item panel">
-                {% include "svgs/share.html" %}
+                {% include "pages/svgs/share.html" %}
                 <p class="workflow-text">Share with others</p>
             </li>
         </ol>
