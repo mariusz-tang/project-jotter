@@ -10,7 +10,7 @@ class UserManagerTestCase(TestCase):
     def setUpTestData(cls) -> None:
         cls.manager = UserManager()
         cls.manager.model = User
-        return super().setUpTestData()
+        super().setUpTestData()
 
     def test_create_user_requires_username(self):
         with self.assertRaises(ValueError):
