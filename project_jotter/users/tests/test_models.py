@@ -1,4 +1,5 @@
-from django.core.mail import outbox
+from django.core import mail
+from django.test import TestCase
 from django.utils import timezone
 
 from users.models import User
@@ -54,3 +55,34 @@ class UserModelFieldDeclarationTestCase(ModelFieldDeclarationTestCase):
         self.assertFieldDeclaredAs(
             "date_joined", verbose_name="date joined", default=timezone.now
         )
+
+
+class UserModelMethodTestCase(TestCase):
+    def test_clean_normalizes_email(self):
+        """
+        clean lowercases the domain part of an email but leaves the
+        rest untouched.
+        """
+        user = User.objects.create(email="tESt@TEsting.com")
+        self.assertEqual(user.email, "tESt@TEsting.com")
+        user.clean()
+        user.save()
+        self.assertEqual(user.email, "tESt@testing.com")
+    
+    def test_short_name_returns_given_name(self):
+        user = User.objects.create(given_name="Tim")
+        self.assertEqual(user.get_short_name(), user.given_name)
+        
+    def test_email_user(self):
+        user = User.objects.create(email="test@testing.com")
+        subject = "subject"
+        message = "message"
+        from_email = "hello@world.com"
+        user.email_user(subject, message, from_email)
+        self.assertEqual(len(mail.outbox), 1)
+
+        email = mail.outbox[0]
+        self.assertEqual(email.subject, subject)
+        self.assertEqual(email.body, message)
+        self.assertEqual(email.from_email, from_email)
+        self.assertListEqual(email.to, [user.email])
