@@ -9,3 +9,9 @@ Clone the project and create a virtual environment:
 ```
 python -m venv .venv
 ```
+
+## Oddities
+
+SVG template files use the `.html` file extension because this gives
+more consistent syntax highlighting, given that they are used as
+inline SVGs.

@@ -1,0 +1,28 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Mariusz Tang">
+    <meta name="description" content="{% block description %}{% endblock description %}">
+    <title>{% block title %}{% endblock title %} — Project Jotter</title>
+    <link rel="icon" type="image/x-icon" href="{% static "base/images/logo.svg" %}">
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="{% static "base/css/reset.css" %}">
+        <link rel="stylesheet" href="{% static "base/css/style.css" %}">
+        <link rel="stylesheet" href="{% static "base/css/font.css" %}">
+    {% endblock stylesheets %}
+
+    {% block scripts %}
+        <script src="{% static "base/js/index.js" %}"></script>
+    {% endblock scripts %}
+</head>
+<body>
+    {% include "base/site-header.html" %}
+    {% block content %}{% endblock content %}
+    {% include "base/site-footer.html" %}
+</body>
+</html>

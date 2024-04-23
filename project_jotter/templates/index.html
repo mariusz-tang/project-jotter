@@ -1,0 +1,52 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block description %}The homepage of Project Jotter—a website for drafting project ideas.{% endblock description %}
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+<header class="section">
+    <div class="content page-header-content hero-content">
+        <hgroup>
+            <p class="page-preheading">Jot anything, anywhere, with</p>
+            <h1 class="page-heading hero-heading">Project Jotter</h1>
+        </hgroup>
+        <p class="page-description">Plan everything, from websites and video games to trips abroad and social events, completely free. Share your completed projects, and get inspired by what others have done!</p>
+        <div class="hero-button-group">
+            <a href="index.html" class="button button-cta button-primary selectable">Get started</a>
+            <a href="index.html" class="button button-cta button-secondary selectable">See examples</a>
+        </div>
+        {% include "svgs/header-image.html" %}
+    </div>
+</header>
+<section class="section">
+    <div class="content content-right-align">
+        <div>
+            <h2 class="section-heading">What's this?</h2>
+            <p class="body-text panel panel-primary"><b class="name-bold">Project Jotter</b> is a tool for quickly writing down plans. It is built for planning computer programming projects such as websites and video games, but is generic enough to be used as a general-purpose notepad.</p>
+            <p class="body-text panel panel-secondary">The tool is completely free to use for any purpose, and you can export your plans to JSON format if this is helpful to you.</p>
+            <p class="body-text panel">You can share your plans with anyone, but note that this is not intended as a full-blown project management application. It is for the quick drafts or notes you might make before committing to a project.</p>
+        </div>
+    </div>
+</section>
+<section class="section">
+    <div class="content">
+        <h2 class="section-heading">Workflow</h2>
+        <ol class="workflow">
+            <li class="workflow-item panel panel-primary">
+                {% include "svgs/idea.html" %}
+                <p class="workflow-text">Think of an idea</p>
+            </li>
+            <li class="workflow-item panel panel-secondary">
+                {% include "svgs/notes.html" %}
+                <p class="workflow-text">Jot it down</p>
+            </li>
+            <li class="workflow-item panel">
+                {% include "svgs/share.html" %}
+                <p class="workflow-text">Share with others</p>
+            </li>
+        </ol>
+    </div>
+</section>
+{% endblock content %}

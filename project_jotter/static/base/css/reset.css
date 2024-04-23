@@ -1,0 +1,69 @@
+/* === CSS Reset === */
+
+/* Feel free to use this in your own projects! */
+
+/* Border-box is usually the size we want to change */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+/* Variable margins and paddings are annoying to override */
+* {
+    margin: 0;
+    padding: 0;
+    /* For "scroll to top" buttons and the like */
+    scroll-behavior: smooth;
+}
+
+body {
+    /* A larger line height is easier to read */
+    line-height: 1.5;
+    /* Minor aesthetic improvements */
+    hanging-punctuation: first last;
+    -webkit-font-smoothing: antialiased;
+}
+
+img, picture, video, canvas, svg {
+    /* This is the usual behaviour we want from images */
+    display: block;
+    /* Images should not grow to cover the entire page :) */
+    max-width: 100%;
+}
+
+/* These elements typically have their own fonts for some reason */
+input, button, textarea, select {
+    font: inherit;
+    color: inherit;
+}
+
+/*
+Rarely do we ever want the default button styles. Often, we want
+<button> elements which do not look like buttons for semantic reasons.
+*/
+button {
+    background: none;
+    border: none;
+    /* Overriding button styles tends to remove this property as well */
+    cursor: pointer;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+}
+p {
+    text-wrap: pretty;
+    /* Long paragraphs are not good for readability */
+    max-width: 75ch;
+}
+h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+    /* While default margins are usually annoying, they are nice for headings */
+    margin-top: 1em;
+}
+
+/*
+Links *should* be coloured differently to indicate what they are,
+but many anchor elements are not links
+*/
+a {
+    color: inherit;
+}
