@@ -16,12 +16,10 @@ class ModelFieldDeclarationTestCase(SimpleTestCase):
         """
         field = self.model._meta.get_field(field_name)
         for attribute, expected_value in kwargs.items():
-            try:
-                actual_value = getattr(field, attribute)
-                self.assertEqual(actual_value, expected_value)
-            except AssertionError as e:
-                e.add_note(
-                    f"{self.model.__name__}.{field_name} has attribute "
-                    f"{attribute} = {repr(actual_value)}, expected {repr(expected_value)}."
-                )
-                raise
+            actual_value = getattr(field, attribute)
+            self.assertEqual(
+                actual_value,
+                expected_value,
+                msg=f"{self.model.__name__}.{field_name} has attribute "
+                f"{attribute} = {repr(actual_value)}, expected {repr(expected_value)}.",
+            )
