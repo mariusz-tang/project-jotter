@@ -65,7 +65,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         max_length=150,
         unique=True,
         help_text=(
-            "Required. Your username must be at most 150 charactes long "
+            "Required. The username must be at most 150 charactes long "
             "and consist solely of letters, numbers and @/./+/-/_."
         ),
         validators=[username_validator],
@@ -82,17 +82,18 @@ class User(AbstractBaseUser, PermissionsMixin):
         },
     )
 
-    given_name = models.CharField("preferred name", max_length=150, blank=True)
+    given_name = models.CharField(
+        "preferred name",
+        max_length=150,
+        blank=True,
+        help_text="The name used to refer to the user in communications",
+    )
     is_staff = models.BooleanField(
         "staff status",
         default=False,
         help_text="Designates whether the user can log into the admin site.",
     )
-    is_verified = models.BooleanField(
-        "email verification status",
-        default=False,
-        help_text="Designates whether the user has verified their email address.",
-    )
+    is_verified = models.BooleanField("email verification status", default=False)
     date_joined = models.DateTimeField("date joined", default=timezone.now)
 
     objects = UserManager()
