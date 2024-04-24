@@ -1,9 +1,14 @@
-{% extends "pages/base.html" %}
+{% extends "pages/base-pages.html" %}
 
 {% load static %}
 
 {% block description %}The homepage of Project Jotter—a website for drafting project ideas.{% endblock description %}
 {% block title %}Home{% endblock title %}
+
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static "pages/css/index.css" %}">
+{% endblock stylesheets %}
 
 {% block page_preheading %}Jot anything, anywhere, with{% endblock page_preheading %}
 {% block page_heading %}Project Jotter{% endblock page_heading %}

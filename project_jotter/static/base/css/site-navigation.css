@@ -1,0 +1,78 @@
+/* === Site Header === */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    background-color: var(--col-bg);
+    padding-block: 0.3rem;
+    border-bottom: var(--section-border);
+    z-index: 1;
+}
+
+.site-header-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.site-header-logo {
+    height: 5rem;
+}
+
+.site-header-nav {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.site-header-option {
+    text-decoration: none;
+    text-transform: lowercase;
+    text-align: center;
+    font-size: 1.2rem;
+    border-radius: 0.4rem;
+    padding-inline: 0.4rem;
+}
+
+/* === Footer === */
+
+.footer {
+    border-top: var(--section-border);
+    padding-top: 3rem;
+    padding-bottom: 5rem;
+    background-color: var(--col-bg);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    gap: 3em;
+}
+
+.footer-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    border-bottom: var(--section-border);
+    padding-bottom: 1rem;
+}
+
+.footer-option {
+    font-size: 1.3rem;
+    text-decoration: none;
+    border-radius: 0.4rem;
+    padding-inline: 0.4rem;
+    width: fit-content;
+}
+
+/* === Wider screens === */
+
+@media screen and (min-width: 801px) {
+    .footer-content {
+        flex-direction: row;
+    }
+
+    .footer-nav {
+        border: none;
+    }
+}

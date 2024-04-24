@@ -2,6 +2,11 @@
 
 {% load static %}
 
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static "pages/css/pages.css" %}">
+{% endblock stylesheets %}
+
 {% block page_header %}
 <header class="section">
     <div class="content page-header-content hero-content">
