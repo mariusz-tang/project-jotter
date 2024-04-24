@@ -6,7 +6,7 @@ from users.models import User
 from project_jotter.test_utils import ModelFieldDeclarationTestCase
 
 
-class UserModelFieldDeclarationTestCase(ModelFieldDeclarationTestCase):
+class UserDeclarationTestCase(ModelFieldDeclarationTestCase):
     model = User
 
     def test_username_field(self):
@@ -57,7 +57,7 @@ class UserModelFieldDeclarationTestCase(ModelFieldDeclarationTestCase):
         )
 
 
-class UserModelMethodTestCase(TestCase):
+class UserMethodTestCase(TestCase):
     def test_clean_normalizes_email(self):
         """
         clean lowercases the domain part of an email but leaves the
