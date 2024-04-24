@@ -9,12 +9,9 @@
 
 {% block page_header %}
 <header class="section">
-    <div class="content page-header-content hero-content">
+    <div class="content page-header-content">
         {% block page_header_content %}
-            <hgroup>
-                <p class="page-preheading">{% block page_preheading %}{% endblock page_preheading %}</p>
-                <h1 class="page-heading hero-heading">{% block page_heading %}{% endblock page_heading %}</h1>
-            </hgroup>
+            <h1 class="page-heading">{% block page_heading %}{% endblock page_heading %}</h1>
             <p class="page-description">{% block page_description %}{% endblock page_description %}</p>
         {% endblock page_header_content %}
 

@@ -10,19 +10,19 @@
 <link rel="stylesheet" href="{% static "pages/css/index.css" %}">
 {% endblock stylesheets %}
 
-{% block page_preheading %}Jot anything, anywhere, with{% endblock page_preheading %}
-{% block page_heading %}Project Jotter{% endblock page_heading %}
-{% block page_description %}
+{% block page_header_content %}
+<hgroup>
+    <p class="page-preheading">Jot anything, anywhere, with</p>
+    <h1 class="page-heading">Project Jotter</h1>
+</hgroup>
+<p class="page-description">
     Plan everything, from websites and video games to trips abroad and social events, completely free.
     Share your completed projects, and get inspired by what others have done!
-{% endblock page_description %}
-
-{% block page_header_content %}
-    {{ block.super }}
-    <div class="hero-button-group">
-        <a href="index.html" class="button button-cta button-primary selectable">Get started</a>
-        <a href="index.html" class="button button-cta button-secondary selectable">See examples</a>
-    </div>
+</p>
+<div class="header-button-group">
+    <a href="index.html" class="button button-cta button-primary selectable">Get started</a>
+    <a href="index.html" class="button button-cta button-secondary selectable">See examples</a>
+</div>
 {% endblock page_header_content %}
 
 {% block content %}
