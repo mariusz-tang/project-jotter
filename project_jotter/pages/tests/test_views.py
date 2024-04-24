@@ -3,12 +3,14 @@ from django.urls import reverse
 
 
 class IndexPageTestCase(SimpleTestCase):
-    def setUp(self) -> None:
-        super().setUp()
-        self.request = self.client.get(reverse("index"))
-
-    def test_accessible_by_name(self):
-        self.assertEqual(self.request.status_code, 200)
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.url = reverse("index")
+        super().setUpClass()
+    
+    def test_expected_url(self):
+        self.assertEqual(self.url, "/")
 
     def test_correct_template_used(self):
-        self.assertTemplateUsed(self.request, "pages/index.html")
+        request = self.client.get(self.url)
+        self.assertTemplateUsed(request, "pages/index.html")

@@ -1,3 +1,6 @@
-from django.shortcuts import render
+from django.contrib.auth import views
 
-# Create your views here.
+
+class LoginView(views.LoginView):
+    template_name = "users/login.html"
+    redirect_authenticated_user = True
