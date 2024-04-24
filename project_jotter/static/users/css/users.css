@@ -1,0 +1,50 @@
+.hero-image {
+    position: absolute;
+    top: 0;
+    z-index: -1;
+    scale: -1 1;
+    max-height: 100%;
+}
+
+.user-form-page-content {
+    position: relative;
+    padding-block: 5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.user-form {
+    padding: 5rem;
+    width: 90%;
+}
+
+.form-heading {
+    font-size: 3rem;
+    margin: 0;
+}
+
+.form-field-area {
+    display: flex;
+    flex-direction: column;
+    margin-block: 1rem;
+}
+
+input[type="text"], input[type="email"], input[type="password"] {
+    background-color: var(--col-bg);
+    border-radius: 2rem;
+    border: 1px solid var(--col-fg);
+    padding: 0.5rem 1rem;
+}
+
+/* === Wider screens === */
+
+@media screen and (min-width: 801px) {
+    .user-form {
+        padding: 3rem 6rem;
+        width: min-content;
+    }
+
+    input[type="text"], input[type="email"], input[type="password"] {
+        width: 40ch;
+    }
+}

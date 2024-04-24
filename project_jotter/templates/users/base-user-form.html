@@ -1,0 +1,32 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static "users/css/users.css" %}">
+{% endblock stylesheets %}
+
+{% block content %}
+<section class="section">
+    <div class="content user-form-page-content">
+        {% block form %}
+            <form class="panel panel-empty user-form" action="{% block action_url %}{% endblock action_url %}" method="post">
+                {% csrf_token %}
+                {% block form_content %}
+                <h1 class="section-heading form-heading">
+                    {% block form_heading %}{% endblock form_heading %}
+                </h1>
+                {% block form_fields %}{% include "users/form-fields-snippet.html" %}{% endblock form_fields %}
+                <button class="button button-black button-form selectable" type="submit">
+                    {% block submit_text %}Submit{% endblock submit_text %}
+                </button>
+                {{ form.non_field_errors }}
+                {% endblock form_content %}
+            </form>
+        {% endblock form %}
+
+        {% include "pages/svgs/header-image.html" %}
+    </div>
+</section>
+{% endblock content %}

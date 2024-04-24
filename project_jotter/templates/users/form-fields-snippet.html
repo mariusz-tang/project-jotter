@@ -1,0 +1,8 @@
+{% comment %} This snippet does NOT include non-field errors {% endcomment %}
+{% for field in form %}
+    <div class="form-field-area">
+        {{ field.label_tag }}
+        {{ field }}
+        {{ field.errors }}
+    </div>
+{% endfor %}
