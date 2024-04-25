@@ -4,6 +4,11 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from .models import User
 
 
+@admin.display(description="Display name")
+def display_name(user):
+    return user.profile.name
+
+
 class UserAdmin(BaseUserAdmin):
     """
     Overriden to reflect field mismatches between the default User
@@ -37,13 +42,9 @@ class UserAdmin(BaseUserAdmin):
         ),
     )
 
-    # ! These may need overriding when the relevant custom forms are created
-    # form = UserChangeForm
-    # add_form = UserCreationForm
-
-    list_display = ("username", "email", "given_name", "is_staff")
+    list_display = ("username", "email", display_name, "is_staff")
     list_filter = ("is_staff", "is_superuser", "is_verified", "groups")
-    search_fields = ("username", "given_name", "email")
+    search_fields = ("username", "profile__name", "email")
 
 
 admin.site.register(User, UserAdmin)
