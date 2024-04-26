@@ -1,3 +1,52 @@
 {% extends "base/base.html" %}
 
-{% block title %}{{ profile.name }}'s Profile{% endblock title %}
+{% load static %}
+
+{% block title %}
+    {{ title }}'s Profile
+{% endblock title %}
+{% block description %}
+    {% if profile.pronouns %}Pronouns: {{ profile.pronouns }}{% endif %}
+    {% if profile.bio %}Bio: {{ profile.bio }}{% endif %}
+{% endblock description %}
+
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static "user_profiles/css/user_profiles.css" %}">
+{% endblock stylesheets %}
+
+{% block content %}
+<section class="section">
+    <div class="content profile-content">
+        <div class="panel panel-empty panel-profile">
+            <div class="profile-avatar"></div>
+
+            {% if profile.name %}
+                <h2 class="section-heading profile-item-name">{{ profile.name }}</h2>
+                <div class="profile-item">
+                    <h3 class="section-heading profile-item-name">Username</h3>
+                    <p class="body-text">{{ profile.user.username }}</p>
+                </div>
+            {% else %}
+                <h2 class="section-heading profile-item-name">{{ profile.user.username }}</h2>
+            {% endif %}
+
+            <div class="profile-item">
+                {% if profile.pronouns %}
+                    <h3 class="section-heading profile-item-name">Pronouns</h3>
+                    <p class="body-text">{{ profile.pronouns }}</p>
+                {% endif %}
+            </div>
+            <div class="profile-item">
+                {% if profile.bio %}
+                    <h3 class="section-heading profile-item-name">Bio</h3>
+                    <p class="body-text">{{ profile.bio }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="vert"></div>
+        <div class="sites"></div>
+        {% include "pages/svgs/header-image.html" %}
+    </div>
+</section>
+{% endblock content %}

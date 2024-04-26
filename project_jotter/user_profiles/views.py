@@ -26,7 +26,8 @@ class UserProfileView(TemplateView):
         if profile is None:
             self.template_name = "user_profiles/profile-does-not-exist.html"
         else:
-            kwargs.update({"profile": profile})
+            title = profile.name or profile.user.username
+            kwargs.update({"profile": profile, "title": title})
 
         return super().get(request, *args, **kwargs)
 
