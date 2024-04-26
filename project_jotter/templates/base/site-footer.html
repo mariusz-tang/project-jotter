@@ -5,7 +5,16 @@
                 <a class="footer-option selectable" href="index.html">Home</a>
                 <a class="footer-option selectable" href="index.html">About</a>
                 <a class="footer-option selectable" href="index.html">Get inspired</a>
-                <a class="footer-option selectable" href="index.html">Log in</a>
+            </nav>
+            <nav class="footer-nav">
+                {% if user.is_authenticated %}
+                    <a class="footer-option selectable" href="{% url "profile" %}">Profile</a>
+                    {% if user.is_staff %}
+                        <a class="footer-option selectable" href="{% url "admin:index" %}">Admin</a>
+                    {% endif %}
+                {% else %}
+                    <a class="footer-option selectable" href="{% url "login" %}">Log In</a>
+                {% endif %}
             </nav>
             <nav class="footer-nav">
                 <a class="footer-option selectable" href="index.html">Disclaimer</a>
