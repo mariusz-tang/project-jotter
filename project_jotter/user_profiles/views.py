@@ -1,4 +1,6 @@
 from typing import Any
+
+from django.contrib import messages
 from django.http import HttpRequest
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
@@ -17,6 +19,14 @@ class UserProfileView(TemplateView):
         # profile
         if username == "":
             if not request.user.is_authenticated:
+                # In practice, we would implement a search mechanism,
+                # but this is just a learner project which is unlikely
+                # to be deployed or see any real use.
+                messages.info(
+                    request,
+                    "No user was provided. Please specify a user "
+                    "in the URL, or log in to view your own profile.",
+                )
                 return HttpResponseRedirect(reverse("login"))
             return HttpResponseRedirect(
                 reverse("profile", kwargs={"username": request.user.username})

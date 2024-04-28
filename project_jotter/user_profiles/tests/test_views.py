@@ -1,3 +1,4 @@
+from django.contrib.messages import get_messages
 from django.test import TestCase
 from django.urls import reverse
 
@@ -18,8 +19,19 @@ class ProfilePageTestCase(TestCase):
         self.assertEqual(self.user_url, "/users/tester/profile/")
 
     def test_redirects_unauthenticated_user_on_no_username_provided(self):
+        """
+        Unauthenticated users are redirected to the login page and a
+        explanation message is displayed.
+        """
         request = self.client.get(self.url)
         self.assertRedirects(request, reverse("login"))
+
+        messages = list(get_messages(request.wsgi_request))
+        self.assertTrue(len(messages) == 1)
+        self.assertTrue(
+            messages[0].message
+            == "No user was provided. Please specify a user in the URL, or log in to view your own profile."
+        )
 
     def test_redirects_authenticated_user_on_no_username_provided(self):
         user = User.objects.create(username="tester")
