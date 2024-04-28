@@ -4,8 +4,8 @@
     <div class="wide-only">
         <div class="content site-header-content">
             <nav class="site-header-nav">
-                <a class="site-header-option selectable" href="index.html">{% include "base/svgs/logo.html" %}</a>
-                <a class="site-header-option selectable" href="index.html">Home</a>
+                <a class="site-header-option selectable" href="{% url "index" %}">{% include "base/svgs/logo.html" %}</a>
+                <a class="site-header-option selectable" href="{% url "index" %}">Home</a>
                 <a class="site-header-option selectable" href="index.html">Get Inspired</a>
                 <a class="site-header-option selectable" href="index.html">About</a>
             </nav>
@@ -28,7 +28,7 @@
     <div class="narrow-only">
         <div class="content site-header-content">
             <nav class="site-header-nav">
-                <a class="site-header-option" href="index.html">{% include "base/svgs/logo.html" %}</a>
+                <a class="site-header-option" href="{% url "index" %}">{% include "base/svgs/logo.html" %}</a>
             </nav>
         </div>
     </div>
