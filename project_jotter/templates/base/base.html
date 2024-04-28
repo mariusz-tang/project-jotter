@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="{% static "base/css/style.css" %}">
         <link rel="stylesheet" href="{% static "base/css/site-navigation.css" %}">
         <link rel="stylesheet" href="{% static "base/css/font.css" %}">
+        <link rel="stylesheet" href="{% static "base/css/messages.css" %}">
     {% endblock stylesheets %}
 
     {% block scripts %}
@@ -23,6 +24,7 @@
 </head>
 <body>
     {% include "base/site-header.html" %}
+    {% include "base/messages-snippet.html" %}
     {% block content %}{% endblock content %}
     {% include "base/site-footer.html" %}
 </body>

@@ -1,0 +1,34 @@
+:root {
+    --col-success: #0f08;
+    --col-warning: #fc07;
+    --col-error: #f007;
+}
+
+:root[data-theme="light"] {
+    --col-info: #38f;
+}
+:root[data-theme="dark"] {
+    --col-info: #05f5;
+}
+
+.messages {
+    border-bottom: 1px solid var(--col-hr);
+
+    > li {
+        list-style-type: none;
+        padding-block: 0.5em;
+        font-weight: bold;
+    }
+    > .info {
+        background-color: var(--col-info);
+    }
+    > .success {
+        background-color: var(--col-success);
+    }
+    > .warning {
+        background-color: var(--col-warning);
+    }
+    > .error {
+        background-color: var(--col-error);
+    }
+}
