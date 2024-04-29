@@ -42,3 +42,10 @@ class PasswordChangeView(auth_views.PasswordChangeView):
     def form_valid(self, form):
         messages.success(self.request, "Your password has been changed successfully!")
         return super().form_valid(form)
+
+
+class LogoutView(auth_views.LogoutView):
+    def post(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            messages.info(self.request, "You have been logged out.")
+        return super().post(request, *args, **kwargs)
