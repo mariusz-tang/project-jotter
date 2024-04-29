@@ -6,3 +6,8 @@
 {% block action_url %}{% url "register" %}{% endblock action_url %}
 {% block form_heading %}Register{% endblock form_heading %}
 {% block submit_text %}Register{% endblock submit_text %}
+
+{% block form_content %}
+{{ block.super }}
+<p>Aready have an account? <a href="{% url "login" %}">Log in</a>!</p>
+{% endblock form_content %}
