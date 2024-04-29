@@ -11,6 +11,10 @@ class LoginView(auth_views.LoginView):
     template_name = "users/login.html"
     redirect_authenticated_user = True
 
+    def form_valid(self, form):
+        messages.success(self.request, f"Welcome, {form.get_user().username}! You have been logged in.")
+        return super().form_valid(form)
+
 
 class RegistrationView(views.FormView):
     form_class = UserRegistrationForm

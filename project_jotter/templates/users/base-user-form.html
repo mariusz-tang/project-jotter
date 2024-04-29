@@ -11,7 +11,7 @@
 <section class="section">
     <div class="content user-form-page-content">
         {% block form %}
-            <form class="panel panel-empty user-form" action="{% block action_url %}./{% endblock action_url %}" method="post">
+            <form class="panel panel-empty user-form" method="post">
                 {% csrf_token %}
                 {% block form_content %}
                 <h1 class="section-heading form-heading">
