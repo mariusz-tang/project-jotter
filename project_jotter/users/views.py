@@ -29,3 +29,12 @@ class RegistrationView(views.FormView):
             self.request, "Account created successfully! Welcome to Project Jotter :)"
         )
         return super().form_valid(form)
+
+
+class PasswordChangeView(auth_views.PasswordChangeView):
+    success_url = reverse_lazy("profile")
+    template_name = "users/change-password.html"
+
+    def form_valid(self, form):
+        messages.success(self.request, "Your password has been changed successfully!")
+        return super().form_valid(form)
