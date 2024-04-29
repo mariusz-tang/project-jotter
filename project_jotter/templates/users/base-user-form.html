@@ -17,10 +17,13 @@
                 <h1 class="section-heading form-heading">
                     {% block form_heading %}{% endblock form_heading %}
                 </h1>
+
                 {% block form_fields %}{% include "users/form-fields-snippet.html" %}{% endblock form_fields %}
+
                 <button class="button button-black button-form selectable" type="submit">
                     {% block submit_text %}Submit{% endblock submit_text %}
                 </button>
+                
                 {{ form.non_field_errors }}
                 {% endblock form_content %}
             </form>
