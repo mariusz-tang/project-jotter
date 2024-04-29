@@ -1,14 +1,14 @@
 :root {
-    --col-success: #0f08;
-    --col-warning: #fc07;
-    --col-error: #f007;
+    --col-success-bg: #0f08;
+    --col-warning-bg: #fc07;
+    --col-error-bg: #f007;
 }
 
 :root[data-theme="light"] {
-    --col-info: #38f;
+    --col-info-bg: #38f;
 }
 :root[data-theme="dark"] {
-    --col-info: #05f5;
+    --col-info-bg: #05f5;
 }
 
 .messages {
@@ -20,15 +20,15 @@
         font-weight: bold;
     }
     > .info {
-        background-color: var(--col-info);
+        background-color: var(--col-info-bg);
     }
     > .success {
-        background-color: var(--col-success);
+        background-color: var(--col-success-bg);
     }
     > .warning {
-        background-color: var(--col-warning);
+        background-color: var(--col-warning-bg);
     }
     > .error {
-        background-color: var(--col-error);
+        background-color: var(--col-error-bg);
     }
 }
