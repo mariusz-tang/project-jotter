@@ -55,3 +55,6 @@ __pypackages__/
 
 # Environments
 .venv
+
+# Media root
+media/
