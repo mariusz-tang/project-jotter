@@ -65,4 +65,9 @@
     .panel-profile {
         max-width: 40ch;
     }
+
+    .sites {
+        width: auto;
+        flex-grow: 1;
+    }
 }

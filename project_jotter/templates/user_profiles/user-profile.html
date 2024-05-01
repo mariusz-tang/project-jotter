@@ -40,7 +40,7 @@
             <div class="profile-item">
                 {% if profile.bio %}
                     <h3 class="section-heading profile-item-name">Bio</h3>
-                    <p class="body-text">{{ profile.bio }}</p>
+                    <p class="body-text">{{ profile.bio|linebreaks }}</p>
                 {% endif %}
             </div>
             {% if profile == user.profile %}

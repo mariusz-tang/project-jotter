@@ -29,9 +29,9 @@
     list-style-type: none;
 }
 
-input[type="text"], input[type="email"], input[type="password"] {
+input[type="text"], input[type="email"], input[type="password"], textarea {
     background-color: var(--col-bg);
-    border-radius: 2rem;
+    border-radius: 1em;
     border: 1px solid var(--col-fg);
     padding: 0.5rem 1rem;
 }
@@ -45,7 +45,7 @@ input[type="text"], input[type="email"], input[type="password"] {
         align-items: flex-start;
     }
 
-    input[type="text"], input[type="email"], input[type="password"] {
+    input[type="text"], input[type="email"], input[type="password"], textarea {
         width: 40ch;
     }
 }
