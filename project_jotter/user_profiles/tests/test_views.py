@@ -39,13 +39,17 @@ class ProfilePageTestCase(TestCase):
         request = self.client.get(self.url)
         self.assertRedirects(request, self.user_url)
 
+    def test_redirects_on_invalid_username_provided(self):
+        request = self.client.get(reverse("profile", kwargs={"username": "blah"}))
+        messages = list(get_messages(request.wsgi_request))
+        self.assertRedirects(request, reverse("index"))
+        self.assertTrue(len(messages) == 1)
+        self.assertTrue(messages[0].message == "User 'blah' does not exist.")
+
     def test_correct_templates_used(self):
         User.objects.create(username="tester")
         request = self.client.get(self.user_url)
         self.assertTemplateUsed(request, "user_profiles/user-profile.html")
-
-        request = self.client.get(reverse("profile", kwargs={"username": "blah"}))
-        self.assertTemplateUsed(request, "user_profiles/profile-does-not-exist.html")
 
     def test_correct_context_passed(self):
         user = User.objects.create(username="tester")

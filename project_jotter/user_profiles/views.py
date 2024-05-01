@@ -28,17 +28,18 @@ class UserProfileView(TemplateView):
                     "in the URL, or log in to view your own profile.",
                 )
                 return HttpResponseRedirect(reverse("login"))
+
             return HttpResponseRedirect(
                 reverse("profile", kwargs={"username": request.user.username})
             )
 
         profile = self.try_get_user_profile(username)
         if profile is None:
-            self.template_name = "user_profiles/profile-does-not-exist.html"
-        else:
-            title = profile.name or profile.user.username
-            kwargs.update({"profile": profile, "title": title})
+            messages.error(request, f"User '{username}' does not exist.")
+            return HttpResponseRedirect(reverse("index"))
 
+        title = profile.name or profile.user.username
+        kwargs.update({"profile": profile, "title": title})
         return super().get(request, *args, **kwargs)
 
     @staticmethod
