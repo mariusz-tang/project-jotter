@@ -43,6 +43,9 @@
                     <p class="body-text">{{ profile.bio }}</p>
                 {% endif %}
             </div>
+            {% if profile == user.profile %}
+                <a href="{% url "edit-profile" %}" class="button button-black selectable">Edit</a>
+            {% endif %}
         </div>
         <div class="vert"></div>
         <div class="sites"></div>

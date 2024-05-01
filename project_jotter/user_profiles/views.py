@@ -1,15 +1,18 @@
 from typing import Any
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from django.forms.forms import BaseForm
 from django.http import HttpRequest
 from django.http.response import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
-from django.views.generic import TemplateView
+from django.urls import reverse, reverse_lazy
+from django.views import generic
 
-from user_profiles.models import UserProfile
+from .models import UserProfile
+from .forms import EditProfileForm
 
 
-class UserProfileView(TemplateView):
+class UserProfileView(generic.TemplateView):
     template_name = "user_profiles/user-profile.html"
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
@@ -48,3 +51,19 @@ class UserProfileView(TemplateView):
         if len(profiles) == 1:
             return profiles[0]
         return None
+
+
+class EditProfileView(LoginRequiredMixin, generic.FormView):
+    success_url = reverse_lazy("profile")
+    template_name = "user_profiles/edit-profile.html"
+
+    def get_form(self, form_class=None) -> BaseForm:
+        return EditProfileForm(instance=self.request.user.profile, **self.get_form_kwargs())
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+    def handle_no_permission(self) -> HttpResponseRedirect:
+        messages.warning(self.request, "Please log in to edit your profile.")
+        return super().handle_no_permission()
