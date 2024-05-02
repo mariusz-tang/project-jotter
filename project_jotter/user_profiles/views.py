@@ -47,7 +47,7 @@ class UserProfileView(generic.TemplateView):
 
     @staticmethod
     def try_get_user_profile(username: str) -> UserProfile:
-        profiles = UserProfile.objects.filter(user__username=username)
+        profiles = UserProfile.objects.filter(user__username__iexact=username)
         if len(profiles) == 1:
             return profiles[0]
         return None
@@ -58,7 +58,9 @@ class EditProfileView(LoginRequiredMixin, generic.FormView):
     template_name = "user_profiles/edit-profile.html"
 
     def get_form(self, form_class=None) -> BaseForm:
-        return EditProfileForm(instance=self.request.user.profile, **self.get_form_kwargs())
+        return EditProfileForm(
+            instance=self.request.user.profile, **self.get_form_kwargs()
+        )
 
     def form_valid(self, form):
         form.save()
