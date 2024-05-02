@@ -13,16 +13,19 @@ class ProjectDeclarationTestCase(ModelFieldDeclarationTestCase):
 
     def test_name_field(self):
         self.assertFieldDeclaredAs(
-            "name", verbose_name="name", blank=False, max_length=150
+            "name",
+            verbose_name="project name",
+            blank=False,
+            max_length=80,
+            help_text="Required. Your project name should consist of only letters, numbers, hypens, underscores, and spaces. "
+            "It should not be named the same as any of your other projects.",
         )
 
     def test_image_field(self):
         self.assertFieldDeclaredAs("image", verbose_name="image", blank=True)
 
     def test_contents_field(self):
-        self.assertFieldDeclaredAs(
-            "contents", verbose_name="contents", blank=True, null=True
-        )
+        self.assertFieldDeclaredAs("contents", verbose_name="contents", blank=True)
 
     def test_completed_field(self):
         self.assertFieldDeclaredAs(
