@@ -47,10 +47,10 @@ class UserProfileView(generic.TemplateView):
 
     @staticmethod
     def try_get_user_profile(username: str) -> UserProfile:
-        profiles = UserProfile.objects.filter(user__username__iexact=username)
-        if len(profiles) == 1:
-            return profiles[0]
-        return None
+        profile = UserProfile.objects.filter(user__username__iexact=username)
+        if not profile.exists():
+            return None
+        return profile.get()
 
 
 class EditProfileView(LoginRequiredMixin, generic.FormView):

@@ -1,4 +1,5 @@
 from django.core import mail
+from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.utils import timezone
 
@@ -68,11 +69,21 @@ class UserMethodTestCase(TestCase):
         user.clean()
         user.save()
         self.assertEqual(user.email, "tESt@testing.com")
-    
+
+    def test_clean_rejects_duplicate_usernames(self):
+        """Usernames differing only by case are rejected."""
+        User.objects.create(username="Tester")
+        user = User(username="tester")
+        with self.assertRaises(ValidationError) as cm:
+            user.clean()
+        self.assertTrue(
+            "A user with that username already exists." in cm.exception.messages
+        )
+
     def test_short_name_returns_given_name(self):
         user = User.objects.create(given_name="Tim")
         self.assertEqual(user.get_short_name(), user.given_name)
-        
+
     def test_email_user(self):
         user = User.objects.create(email="test@testing.com")
         subject = "subject"

@@ -1,4 +1,5 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 from django.core.validators import RegexValidator
 from django.db import models
@@ -65,7 +66,17 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def clean(self):
         super().clean()
-        self.email = self.__class__.objects.normalize_email(self.email)
+        cls = self.__class__
+        self.email = cls.objects.normalize_email(self.email)
+
+        if (
+            cls.objects.filter(username__iexact=self.username)
+            .exclude(pk=self.pk)
+            .exists()
+        ):
+            raise ValidationError(
+                {"username": self.unique_error_message(cls, ["username"])}
+            )
 
     def get_short_name(self):
         return self.given_name
