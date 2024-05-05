@@ -10,4 +10,4 @@ class ProfileInline(admin.StackedInline):
 
 # We add profiles as an inline to the UserAdmin instead of creating
 # and/or registering a ProfileAdmin separately.
-UserAdmin.inlines = (*UserAdmin.inlines, ProfileInline)
+UserAdmin.inlines = (ProfileInline, *UserAdmin.inlines)
