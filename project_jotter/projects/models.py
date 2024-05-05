@@ -60,6 +60,11 @@ class Project(models.Model):
         validators=[validate_project_contents],
     )
     completed = models.BooleanField(blank=True, default=False)
+    is_private = models.BooleanField(
+        blank=True,
+        default=False,
+        help_text="Private projects are not displayed to other users who visit your profile",
+    )
 
     def clean(self) -> None:
         super().clean()

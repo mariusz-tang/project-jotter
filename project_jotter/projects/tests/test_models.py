@@ -33,6 +33,15 @@ class ProjectDeclarationTestCase(ModelFieldDeclarationTestCase):
             "completed", verbose_name="completed", blank=True, default=False
         )
 
+    def test_is_private_field(self):
+        self.assertFieldDeclaredAs(
+            "is_private",
+            verbose_name="is private",
+            blank=True,
+            default=False,
+            help_text="Private projects are not displayed to other users who visit your profile",
+        )
+
     def test_url_field(self):
         self.assertFieldDeclaredAs("url", editable=False, max_length=255)
 
