@@ -29,7 +29,7 @@ def validate_project_contents(value):
 
 
 def get_image_file_name(instance, filename):
-    return f"project-images/{instance.author.pk}/{instance.pk}/{filename}"
+    return f"project-images/{instance.author.pk}/{filename}"
 
 
 class Project(models.Model):
