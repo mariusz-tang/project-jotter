@@ -18,7 +18,7 @@ class LoginView(auth_views.LoginView):
 
 class RegistrationView(views.FormView):
     form_class = UserRegistrationForm
-    success_url = reverse_lazy("profile")
+    success_url = reverse_lazy("edit-profile")
     template_name = "users/register.html"
 
     def dispatch(self, request, *args, **kwargs):
