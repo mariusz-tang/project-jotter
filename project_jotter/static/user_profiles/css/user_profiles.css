@@ -16,6 +16,7 @@
     display: none;
     border-left: 1px solid var(--col-hr);
     margin-inline: 2rem;
+    align-self: stretch;
 }
 
 /* === Profile Panel === */
@@ -25,6 +26,7 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    width: 100%;
 }
 
 .profile-avatar {
@@ -40,10 +42,66 @@
     margin-bottom: 0.4rem;
 }
 
-/* === Sites === */
+/* === Projects === */
 
-.sites {
+.projects {
     width: 100%;
+}
+
+.projects-heading {
+    margin: 0;
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20ch, 1fr));
+    gap: 2rem;
+    margin-block: 1em;
+}
+
+.no-projects {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+}
+
+.project {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+.project-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.project-text {
+    padding: 0.5rem 1rem;
+}
+.project-title {
+    text-wrap: pretty;
+    margin: 0;
+}
+.project-tag {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.project-link {
+    text-decoration: none;
+}
+.project-link .project {
+    transition: background-color 0.1s;
+}
+.project-link:hover .project {
+    background-color: var(--col-primary);
 }
 
 /* === Wider screens === */
@@ -55,7 +113,7 @@
     
     .profile-content {
         flex-direction: row;
-        align-items: stretch;
+        align-items: flex-start;
     }
 
     .vert {
@@ -63,10 +121,10 @@
     }
 
     .panel-profile {
-        max-width: 40ch;
+        max-width: 30ch;
     }
 
-    .sites {
+    .project-grid {
         width: auto;
         flex-grow: 1;
     }

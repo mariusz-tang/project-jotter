@@ -47,8 +47,39 @@
                 <a href="{% url "edit-profile" %}" class="button button-black selectable">Edit</a>
             {% endif %}
         </div>
+
         <div class="vert"></div>
-        <div class="sites"></div>
+
+        <div class="projects">
+            <h2 class="section-heading projects-heading">Projects</h2>
+            {% if projects|length == 0 %}
+                <div class="no-projects panel panel-empty">
+                    <p class="body-text">This user has no projects!</p>
+                    {% if profile.user == user %}
+                        <a href="" class="button button-black selectable">Start a project</a>
+                    {% endif %}
+                </div>
+            {% else %}
+                <div class="project-grid">
+                    {% for project in projects %}
+                        <a class="project-link" href="">
+                            <figure class="project panel panel-empty">
+                                <img
+                                    class="project-image"
+                                    src="{% if project.image %}{{ project.image.url }}{% else %}{% static "projects/images/default_project.png" %}{% endif %}"
+                                >
+                                <figcaption class="project-text">
+                                    <h4 class="project-title">{{ project.name }}</h4>
+                                    {% if project.completed %}<p class="project-tag">Compeleted</p>{% endif %}
+                                    {% if project.is_private %}<p class="project-tag">Private</p>{% endif %}
+                                </figcaption>
+                            </figure>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
         {% include "pages/svgs/header-image.html" %}
     </div>
 </section>

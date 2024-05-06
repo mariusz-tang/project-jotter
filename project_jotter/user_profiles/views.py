@@ -42,7 +42,20 @@ class UserProfileView(generic.TemplateView):
             return HttpResponseRedirect(reverse("index"))
 
         title = profile.name or profile.user.username
-        kwargs.update({"profile": profile, "title": title})
+        # Do not display private projects to other users.
+        projects = (
+            profile.user.projects.all()
+            if profile.user == request.user
+            else profile.user.projects.filter(is_private=False)
+        )
+
+        kwargs.update(
+            {
+                "profile": profile,
+                "title": title,
+                "projects": projects,
+            }
+        )
         return super().get(request, *args, **kwargs)
 
     @staticmethod
