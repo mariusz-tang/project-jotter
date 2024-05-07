@@ -1,8 +1,20 @@
 {% comment %} This snippet does NOT include non-field errors {% endcomment %}
 {% for field in form %}
-    <div class="form-field-area">
-        {{ field.label_tag }}
-        {{ field }}
-        {{ field.errors }}
-    </div>
+
+    {% if field.widget_type == "checkbox" %}
+        <div class="form-field-area">
+            <div>
+                {{ field.label_tag }}
+                {{ field }}
+            </div>
+            {{ field.errors }}
+        </div>
+    {% else %}
+        <div class="form-field-area">
+            {{ field.label_tag }}
+            {{ field }}
+            {{ field.errors }}
+        </div>
+    {% endif %}
+
 {% endfor %}

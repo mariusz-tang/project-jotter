@@ -36,6 +36,19 @@ input[type="text"], input[type="email"], input[type="password"], textarea {
     padding: 0.5rem 1rem;
 }
 
+input[type="file"]::file-selector-button {
+    color: var(--col-fg);
+    background-color: var(--col-bg);
+    border: solid 1px var(--col-fg);
+    border-radius: 0.5em;
+    cursor: pointer;
+    padding: 0.4rem 1.6rem;
+}
+input[type="file"]::file-selector-button:hover {
+    color: var(--col-bg);
+    background-color: var(--col-fg);
+}
+
 /* === Wider screens === */
 
 @media screen and (min-width: 801px) {
