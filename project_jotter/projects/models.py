@@ -59,8 +59,9 @@ class Project(models.Model):
         default=list,
         validators=[validate_project_contents],
     )
-    completed = models.BooleanField(blank=True, default=False)
+    is_completed = models.BooleanField(verbose_name="completed", blank=True, default=False)
     is_private = models.BooleanField(
+        verbose_name="private",
         blank=True,
         default=False,
         help_text="Private projects are not displayed to other users who visit your profile",

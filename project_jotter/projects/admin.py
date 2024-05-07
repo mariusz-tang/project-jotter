@@ -11,9 +11,9 @@ class ProjectInline(admin.StackedInline):
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    fieldsets = ((None, {"fields": ("name", "author", "completed", "is_private", "contents")}),)
-    list_display = ("name", "author", "completed")
-    list_filter = ("completed",)
+    fieldsets = ((None, {"fields": ("name", "author", "is_completed", "is_private", "contents")}),)
+    list_display = ("name", "author", "is_completed")
+    list_filter = ("is_completed",)
     search_fields = ("name", "author")
 
 

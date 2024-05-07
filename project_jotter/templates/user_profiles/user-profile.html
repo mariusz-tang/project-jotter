@@ -70,7 +70,7 @@
                                 >
                                 <figcaption class="project-text">
                                     <h4 class="project-title">{{ project.name }}</h4>
-                                    {% if project.completed %}<p class="project-tag">Compeleted</p>{% endif %}
+                                    {% if project.is_completed %}<p class="project-tag">Compeleted</p>{% endif %}
                                     {% if project.is_private %}<p class="project-tag">Private</p>{% endif %}
                                 </figcaption>
                             </figure>

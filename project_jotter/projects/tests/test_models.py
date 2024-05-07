@@ -28,15 +28,15 @@ class ProjectDeclarationTestCase(ModelFieldDeclarationTestCase):
     def test_contents_field(self):
         self.assertFieldDeclaredAs("contents", verbose_name="contents", blank=True)
 
-    def test_completed_field(self):
+    def test_is_completed_field(self):
         self.assertFieldDeclaredAs(
-            "completed", verbose_name="completed", blank=True, default=False
+            "is_completed", verbose_name="completed", blank=True, default=False
         )
 
     def test_is_private_field(self):
         self.assertFieldDeclaredAs(
             "is_private",
-            verbose_name="is private",
+            verbose_name="private",
             blank=True,
             default=False,
             help_text="Private projects are not displayed to other users who visit your profile",
