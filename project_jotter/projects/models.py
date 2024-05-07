@@ -59,7 +59,9 @@ class Project(models.Model):
         default=list,
         validators=[validate_project_contents],
     )
-    is_completed = models.BooleanField(verbose_name="completed", blank=True, default=False)
+    is_completed = models.BooleanField(
+        verbose_name="completed", blank=True, default=False
+    )
     is_private = models.BooleanField(
         verbose_name="private",
         blank=True,
@@ -74,6 +76,21 @@ class Project(models.Model):
         if self.contents is None or isinstance(self.contents, dict):
             self.contents = []
         self.name = self.name.strip()
+
+    def clean_fields(self, exclude=None):
+        super().clean_fields(exclude=exclude)
+        same_author = self.__class__.objects.filter(author=self.author, name=self.name)
+        if len(same_author) > 2 or (len(same_author) == 1 and same_author.get() != self):
+            if "name" in exclude:
+                raise ValidationError(
+                    "You may not have more than one project with the same name."
+                )
+            else:
+                raise ValidationError(
+                    {
+                        "name": "You may not have more than one project with the same name."
+                    }
+                )
 
     def save(
         self, force_insert=False, force_update=False, using=None, update_fields=None
