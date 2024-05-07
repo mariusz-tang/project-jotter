@@ -2,6 +2,7 @@ from django.contrib.messages import get_messages
 from django.test import TestCase
 from django.urls import reverse
 
+from projects.models import Project
 from users.models import User
 
 
@@ -68,3 +69,62 @@ class ProfilePageTestCase(TestCase):
         )
         self.assertEqual(request.context["profile"], named_user.profile)
         self.assertEqual(request.context["title"], named_user.profile.name)
+
+
+class ProfilePageProjectVisibilityTestCase(TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        super().setUpClass()
+        cls.user1 = User.objects.create(username="user1", email="user1@testing.com")
+
+        cls.user2 = User.objects.create(username="user2", email="user2@testing.com")
+        cls.public_project = Project.objects.create(
+            author=cls.user2, is_private=False, name="Proj1"
+        )
+        Project.objects.create(author=cls.user2, is_private=True, name="Proj2")
+
+        cls.user3 = User.objects.create(username="user3", email="user3@testing.com")
+        Project.objects.create(author=cls.user3, is_private=True, name="Proj1")
+
+    def test_unauthenticated_user_project_visibility(self):
+        """Unauthenticated users see only non-private projects"""
+
+        request = self.client.get(
+            reverse("profile", kwargs={"username": self.user1.username})
+        )
+        self.assertEqual(len(request.context["projects"]), 0)
+
+        request = self.client.get(
+            reverse("profile", kwargs={"username": self.user2.username})
+        )
+        self.assertEqual(len(request.context["projects"]), 1)
+        self.assertEqual(request.context["projects"].get(), self.public_project)
+
+        request = self.client.get(
+            reverse("profile", kwargs={"username": self.user3.username})
+        )
+        self.assertEqual(len(request.context["projects"]), 0)
+
+    def test_authenticated_user_project_visibility(self):
+        """Users see only non-private projects of other users"""
+        self.client.force_login(self.user1)
+
+        request = self.client.get(
+            reverse("profile", kwargs={"username": self.user2.username})
+        )
+        self.assertEqual(len(request.context["projects"]), 1)
+        self.assertEqual(request.context["projects"].get(), self.public_project)
+
+        request = self.client.get(
+            reverse("profile", kwargs={"username": self.user3.username})
+        )
+        self.assertEqual(len(request.context["projects"]), 0)
+
+    def test_user_own_project_visibility(self):
+        """Users should see all of their own projects"""
+        self.client.force_login(self.user2)
+
+        request = self.client.get(
+            reverse("profile", kwargs={"username": self.user2.username})
+        )
+        self.assertEqual(len(request.context["projects"]), 2)
