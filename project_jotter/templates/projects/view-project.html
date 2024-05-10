@@ -19,7 +19,22 @@
 <section class="section">
     <div class="content project-content">
         <div class="panel panel-empty panel-project">
-        
+            <img src="{% if project.image %}{{ project.image.url }}{% else %}{% static "projects/images/default_project.png" %}{% endif %}" alt="">
+            <div class="project-item">
+                <h2 class="section-heading project-item-name">{{ project.name }}</h2>
+            </div>
+            <div class="project-item">
+                <h3 class="section-heading project-item-name">Completed?</h3>
+                <p class="body-text">
+                    {% if project.is_completed %}Yes{% else %}No{% endif %}
+                </p>
+            </div>
+            <div class="project-item">
+                <h3 class="section-heading project-item-name">Private?</h3>
+                <p class="body-text">
+                    {% if project.is_private %}Yes{% else %}No{% endif %}
+                </p>
+            </div>
         </div>
 
         <div class="vert"></div>
