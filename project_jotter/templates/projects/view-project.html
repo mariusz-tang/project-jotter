@@ -1,0 +1,33 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+
+{% block title %}
+    {{ title }}'s Profile
+{% endblock title %}
+{% block description %}
+    {% if profile.pronouns %}Pronouns: {{ profile.pronouns }}{% endif %}
+    {% if profile.bio %}Bio: {{ profile.bio }}{% endif %}
+{% endblock description %}
+
+{% block stylesheets %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static "projects/css/projects.css" %}">
+{% endblock stylesheets %}
+
+{% block content %}
+<section class="section">
+    <div class="content project-content">
+        <div class="panel panel-empty panel-project">
+        
+        </div>
+
+        <div class="vert"></div>
+
+        <div class="projects">
+        </div>
+
+        {% include "pages/svgs/header-image.html" %}
+    </div>
+</section>
+{% endblock content %}

@@ -4,5 +4,5 @@ from . import views
 
 urlpatterns = [
     path("create", views.ProjectCreationView.as_view(), name="create-project"),
-    path("<username>/<project_name>/edit", views.ProjectEditingView.as_view(), name="edit-project"),
+    path("<username>/<project_name>", views.ProjectDetailView.as_view(), name="view-project"),
 ]

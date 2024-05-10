@@ -62,7 +62,7 @@
             {% else %}
                 <div class="project-grid">
                     {% for project in projects %}
-                        <a class="project-link" href="">
+                        <a class="project-link" href="{% url "view-project" username=profile.user.username project_name=project.name %}">
                             <figure class="project panel panel-empty">
                                 <img
                                     class="project-image"

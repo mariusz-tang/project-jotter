@@ -1,11 +1,10 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
 from . import forms
-
+from .models import Project
 
 class ProjectCreationView(LoginRequiredMixin, generic.CreateView):
     template_name = "projects/create-project.html"
@@ -26,5 +25,9 @@ class ProjectCreationView(LoginRequiredMixin, generic.CreateView):
         return super().form_valid(form)
     
 
-class ProjectEditingView(generic.TemplateView):
-    template_name = "projects/edit-project.html"
+class ProjectDetailView(generic.DetailView):
+    model = Project
+    template_name = "projects/view-project.html"
+    
+    def get_object(self, queryset=None):
+        return Project.objects.get(author__username=self.kwargs["username"], name=self.kwargs["project_name"])
