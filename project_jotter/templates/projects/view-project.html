@@ -2,13 +2,8 @@
 
 {% load static %}
 
-{% block title %}
-    {{ title }}'s Profile
-{% endblock title %}
-{% block description %}
-    {% if profile.pronouns %}Pronouns: {{ profile.pronouns }}{% endif %}
-    {% if profile.bio %}Bio: {{ profile.bio }}{% endif %}
-{% endblock description %}
+{% block title %}{{ project.name }}{% endblock title %}
+{% block description %}A project by {{ project.author }}.{% endblock description %}
 
 {% block stylesheets %}
 {{ block.super }}
