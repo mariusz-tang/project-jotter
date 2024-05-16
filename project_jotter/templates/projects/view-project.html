@@ -30,11 +30,20 @@
                     {% if project.is_private %}Yes{% else %}No{% endif %}
                 </p>
             </div>
+            {% if project.author == user %}
+                <a href="{% url "edit-profile" %}" class="button button-black selectable">Edit</a>
+            {% endif %}
         </div>
 
         <div class="vert"></div>
 
-        <div class="projects">
+        <div class="projects panel panel-empty">
+            {% for section in project.sections.all %}
+                <div>
+                    <h2 class="project-section-heading">{{ section.heading }}</h2>
+                    <p class="body-text">{{ section.body|linebreaksbr }}</p>
+                </div>
+            {% endfor %}
         </div>
 
         {% include "pages/svgs/header-image.html" %}
