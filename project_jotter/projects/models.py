@@ -101,8 +101,9 @@ class ProjectSection(models.Model):
     class Meta:
         constraints = [
             models.CheckConstraint(
-                check=Q(heading__isnull=False) | Q(body__isnull=False),
+                check=~Q(heading="") | ~Q(body=""),
                 name="not_both_null",
+                violation_error_message="At least one of the heading or the body have to be non-empty."
             )
         ]
         indexes = [models.Index(fields=["parent"])]

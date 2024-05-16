@@ -160,6 +160,17 @@ class ProjectSectionEditView(generic.UpdateView):
         except ProjectSection.DoesNotExist:
             raise Http404("Project section not found.")
 
+    def form_invalid(self, form):
+        response = super().form_invalid(form)
+        if form.instance.heading == form.instance.body == "":
+            response = redirect(
+                "view-project",
+                username=self.object.parent.author.username,
+                project_name=self.object.parent.name,
+            )
+            self.object.delete()
+        return response
+
     def get_success_url(self):
         return reverse(
             "view-project",
