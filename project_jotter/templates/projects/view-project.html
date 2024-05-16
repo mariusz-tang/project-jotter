@@ -40,8 +40,7 @@
         <div class="projects panel panel-empty">
             {% for section in project.sections.all %}
                 {% if project.author == user %}
-                {% comment %} {% url "edit-project-section" project=project.pk section=section.pk %} {% endcomment %}
-                    <a class="project-section-link" href="">
+                    <a class="project-section-link" href="{% url "edit-project-section" username=project.author.username project_name=project.name section_id=section.pk %}">
                         <h2 class="project-section-heading">{{ section.heading }}</h2>
                         <p class="body-text">{{ section.body|linebreaksbr }}</p>
                         <p class="edit-section-text">Click to edit!</p>
@@ -54,7 +53,7 @@
                 {% endif %}
             {% endfor %}
             {% if project.author == user %}
-                <a href="{% url "create-project-section" project_id=project.pk %}" class="button button-black selectable">Add section</a>
+                <a href="{% url "create-project-section" username=project.author.username project_name=project.name %}" class="button button-black selectable">Add section</a>
             {% endif %}
         </div>
 
