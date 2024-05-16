@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='project',
             name='contents',
-            field=models.JSONField(blank=True, default=list, validators=[projects.models.validate_project_contents]),
+            field=models.JSONField(blank=True, default=list),
         ),
         migrations.AlterField(
             model_name='project',

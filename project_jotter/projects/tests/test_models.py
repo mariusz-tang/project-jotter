@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.test import TestCase
 
 from project_jotter.test_utils import ModelFieldDeclarationTestCase
-from projects.models import Project, validate_project_contents, get_image_file_name
+from projects.models import Project, ProjectSection
 from users.models import User
 
 
@@ -24,9 +24,6 @@ class ProjectDeclarationTestCase(ModelFieldDeclarationTestCase):
 
     def test_image_field(self):
         self.assertFieldDeclaredAs("image", verbose_name="image", blank=True)
-
-    def test_contents_field(self):
-        self.assertFieldDeclaredAs("contents", verbose_name="contents", blank=True)
 
     def test_is_completed_field(self):
         self.assertFieldDeclaredAs(
@@ -55,56 +52,21 @@ class ProjectModelTestCase(TestCase):
         project = Project.objects.create(author=user, name="My Project")
         self.assertEqual(str(project), "My Project (Tester)")
 
-    def test_contents_validation(self):
-        """Contents should be accepted only in the right format"""
-        user = user = User.objects.create()
-        valid_data = [
-            [],
-            [{"heading": "", "content": ""}],
-            {},
-        ]
-        invalid_data = [
-            [{"heading": "", "content": []}],
-            [
-                {"heading": "", "content": ""},
-                {"heading": {}, "content": ""},
-            ],
-            [[]],
-            {"hello": []},
-        ]
-        for item in valid_data:
-            project = Project(author=user, name="Test", contents=item)
-            project.clean_fields()
 
-        for item in invalid_data:
-            with self.assertRaises(ValidationError):
-                project = Project(author=user, name="Test", contents=item)
-                project.clean_fields()
+class ProjectSectionDeclarationTestCase(ModelFieldDeclarationTestCase):
+    model = ProjectSection
 
-    def test_contens_validator_function(self):
-        """
-        Contents should be accepted only in the right format.
+    def test_parent_field(self):
+        self.assertFieldDeclaredAs(
+            "parent",
+            verbose_name="parent project",
+            blank=False,
+        )
 
-        This is a test of the validator function itself rather than of
-        the model doing the validating.
-        """
-        valid_data = [
-            [],
-            [{"heading": "", "content": ""}],
-        ]
-        invalid_data = [
-            [{"heading": "", "content": []}],
-            [
-                {"heading": "", "content": ""},
-                {"heading": {}, "content": ""},
-            ],
-            [[]],
-            {"hello": []},
-            {},
-        ]
-        for item in valid_data:
-            validate_project_contents(item)
+    def test_heading_field(self):
+        self.assertFieldDeclaredAs(
+            "heading", verbose_name="heading", max_length=80, blank=True
+        )
 
-        for item in invalid_data:
-            with self.assertRaises(ValidationError):
-                validate_project_contents(item)
+    def test_body_field(self):
+        self.assertFieldDeclaredAs("body", verbose_name="body", blank=True)

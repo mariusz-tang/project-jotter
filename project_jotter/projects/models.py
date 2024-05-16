@@ -1,31 +1,11 @@
 from urllib.parse import quote
 
 from django.db import models
+from django.db.models import Q
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 
 from users.models import User
-
-
-def validate_project_contents(value):
-    if not isinstance(value, list):
-        raise ValidationError(f"{value} is not a list")
-
-    for entry in value:
-        if not isinstance(entry, dict):
-            raise ValidationError(f"{value} contains an entry which is not a dict")
-
-        if (
-            len(entry) != 2
-            or "heading" not in entry
-            or not isinstance(entry["heading"], str)
-            or "content" not in entry
-            or not isinstance(entry["content"], str)
-        ):
-            raise ValidationError(
-                f"{value} contains an entry not in the expected "
-                r"{'heading': '...', 'content': '...'} format"
-            )
 
 
 def get_image_file_name(instance, filename):
@@ -54,11 +34,6 @@ class Project(models.Model):
     )
     url = models.CharField(max_length=255, null=True, editable=False)
     image = models.ImageField(blank=True, upload_to=get_image_file_name)
-    contents = models.JSONField(
-        blank=True,
-        default=list,
-        validators=[validate_project_contents],
-    )
     is_completed = models.BooleanField(
         verbose_name="completed", blank=True, default=False
     )
@@ -71,16 +46,14 @@ class Project(models.Model):
 
     def clean(self) -> None:
         super().clean()
-        # Django skips validation if the field is empty, and counts
-        # {} as an empty value.
-        if self.contents is None or isinstance(self.contents, dict):
-            self.contents = []
         self.name = self.name.strip()
 
     def clean_fields(self, exclude=None):
         super().clean_fields(exclude=exclude)
         same_author = self.__class__.objects.filter(author=self.author, name=self.name)
-        if len(same_author) > 2 or (len(same_author) == 1 and same_author.get() != self):
+        if len(same_author) > 2 or (
+            len(same_author) == 1 and same_author.get() != self
+        ):
             if "name" in exclude:
                 raise ValidationError(
                     "You may not have more than one project with the same name."
@@ -113,3 +86,23 @@ class Project(models.Model):
 
     class Meta:
         unique_together = (("author", "name"),)
+
+
+class ProjectSection(models.Model):
+    parent = models.ForeignKey(
+        Project,
+        on_delete=models.CASCADE,
+        verbose_name="parent project",
+        related_name="sections",
+    )
+    heading = models.CharField(max_length=80, blank=True)
+    body = models.TextField(blank=True)
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                check=Q(heading__isnull=False) | Q(body__isnull=False),
+                name="not_both_null",
+            )
+        ]
+        indexes = [models.Index(fields=["parent"])]
