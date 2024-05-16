@@ -31,7 +31,7 @@
                 </p>
             </div>
             {% if project.author == user %}
-                <a href="{% url "edit-profile" %}" class="button button-black selectable">Edit</a>
+                <a href="{% url "edit-project" username=project.author.username project_name=project.name %}" class="button button-black selectable">Edit</a>
             {% endif %}
         </div>
 

@@ -1,0 +1,8 @@
+{% extends "projects/create-project.html" %}
+
+{% block title %}Edit {{ form.object.name }}{% endblock title %}
+
+{% block extra_form_attrs %}enctype="multipart/form-data"{% endblock extra_form_attrs %}
+
+{% block form_heading %}Edit {{ form.object.name }}{% endblock form_heading %}
+{% block submit_text %}Save{% endblock submit_text %}
