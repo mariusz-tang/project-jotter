@@ -7,7 +7,7 @@ from django.shortcuts import redirect
 from django.views import generic
 
 from . import forms
-from .models import Project
+from .models import Project, ProjectSection
 
 
 class ProjectCreationView(LoginRequiredMixin, generic.CreateView):
@@ -94,3 +94,42 @@ class ProjectDetailView(generic.DetailView):
                 "Project not found. If you are trying to access a private "
                 "project, please log in first."
             )
+
+
+class ProjectSectionCreationView(LoginRequiredMixin, generic.CreateView):
+    model = ProjectSection
+    template_name = "projects/create-project-section.html"
+    fields = ["heading", "body"]
+
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            self.parent_project = Project.objects.get(pk=kwargs["project_id"])
+        except Project.DoesNotExist:
+            raise Http404(
+                "Project not found. If you are trying to access a private "
+                "project, please log in first."
+            )
+
+        if self.request.user != self.parent_project.author:
+            raise Http404(
+                "Project not found. If you are trying to access a private "
+                "project, please log in first."
+            )
+        return super().dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        form.instance.parent = self.parent_project
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        kwargs["parent_project"] = self.parent_project
+        return super().get_context_data(**kwargs)
+
+    def get_success_url(self):
+        return reverse(
+            "view-project",
+            kwargs={
+                "username": self.object.parent.author.username,
+                "project_name": self.object.parent.name,
+            },
+        )
